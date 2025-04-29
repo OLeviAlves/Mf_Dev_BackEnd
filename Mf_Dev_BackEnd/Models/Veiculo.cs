@@ -28,5 +28,7 @@ namespace Mf_Dev_BackEnd.Models
         [Required(ErrorMessage = "Obrigatório informar a cor do carro!")]
         [Display(Name = "Cor do veículo")]
         public string Cor { get; set; }
+
+        public ICollection<Consumo> Consumos { get; set; }
     }
 }
