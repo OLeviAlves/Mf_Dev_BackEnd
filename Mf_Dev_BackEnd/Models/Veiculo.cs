@@ -7,21 +7,26 @@ namespace Mf_Dev_BackEnd.Models
     public class Veiculo
     {
         [Key]
-        public int Id { get; set; } 
+        public int Id { get; set; }
 
-        [Required(ErrorMessage ="Obrigatorio informar um nome!")]
+        [Required(ErrorMessage = "Obrigatório informar um nome!")]
+        [Display(Name = "Nome do veículo")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Obrigatorio informar uma placa!")]
-        public int Placa { get; set; }
+        [Required(ErrorMessage = "Obrigatório informar uma placa!")]
+        [Display(Name = "Placa")]
+        public string Placa { get; set; }
 
-        [Required(ErrorMessage = "Obrigatorio informar o ano de frabricação!")]
+        [Required(ErrorMessage = "Obrigatório informar o ano de fabricação!")]
+        [Display(Name = "Ano de Fabricação")]
         public int AnoFabricacao { get; set; }
 
-        [Required(ErrorMessage = "Obrigatorio informar o ano do modelo!")]
+        [Required(ErrorMessage = "Obrigatório informar o ano do modelo!")]
+        [Display(Name = "Ano do Modelo")]
         public int AnoModelo { get; set; }
 
-        [Required(ErrorMessage = "Obrigatorio informar a cor do carro!")]
-        public string Cor { get; set; } 
+        [Required(ErrorMessage = "Obrigatório informar a cor do carro!")]
+        [Display(Name = "Cor do veículo")]
+        public string Cor { get; set; }
     }
 }
