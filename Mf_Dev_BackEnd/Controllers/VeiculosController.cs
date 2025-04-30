@@ -6,12 +6,12 @@ namespace Mf_Dev_BackEnd.Controllers
 {
     public class VeiculosController : Controller
     {
-        private readonly AppDbContext _context; 
+        private readonly AppDbContext _context;
         public VeiculosController(AppDbContext context)
         {
             _context = context;
         }
-        
+
         public async Task<IActionResult> Index()
         {
             var dados = await _context.Veiculos.ToListAsync();
@@ -41,7 +41,7 @@ namespace Mf_Dev_BackEnd.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
-               return NotFound();
+                return NotFound();
             var dados = await _context.Veiculos.FindAsync(id);
             if (dados == null)
                 return NotFound();
@@ -66,14 +66,14 @@ namespace Mf_Dev_BackEnd.Controllers
         }
         public async Task<IActionResult> Details(int? id)
         {
-            if(id == null)
+            if (id == null)
                 return NotFound();
 
             var dados = await _context.Veiculos.FindAsync(id);
-            if(dados == null)
+            if (dados == null)
                 return NotFound();
 
-            return View(dados);  
+            return View(dados);
         }
 
         public async Task<IActionResult> Delete(int? id)
@@ -102,6 +102,27 @@ namespace Mf_Dev_BackEnd.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Relatorio(int? id)
+        {
+            if(id == null)
+                return NotFound();
+
+            var veiculo = await _context.Veiculos.FindAsync(id);
+            if (veiculo == null) 
+                return NotFound();
+            
+            var consumos = await _context.Consumos
+                .OrderByDescending(c => c.Data)
+                .Where(c => c.VeiculoId == id).ToListAsync();
+
+            decimal total = consumos.Sum(c => c.Valor);
+
+            ViewBag.Veiculo = veiculo;
+            ViewBag.Total = total;
+
+            return View(consumos);
         }
     }
 }
